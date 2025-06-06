@@ -18,24 +18,23 @@
 |  decide to adopt.                                                            |
 |                                                                              |
 |=============================================================================*/
-package com.dasther.horometro.moka7;
+
+package com.dasther.horometro.communication.moka7;
 
 /**
- *
+ * Quick class to pass an integer by reference
  * @author Davide
  */
-public class S7CpInfo {
 
-    public int MaxPduLength;
-    public int MaxConnections;
-    public int MaxMpiRate;
-    public int MaxBusRate;
-
-    protected void Update(byte[] Src, int Pos)
+public class IntByRef {
+   
+    public IntByRef(int Val)
     {
-        MaxPduLength = S7.GetShortAt(Src, 2);
-        MaxConnections = S7.GetShortAt(Src, 4);
-        MaxMpiRate = S7.GetDIntAt(Src, 6);
-        MaxBusRate = S7.GetDIntAt(Src, 10);                      
-    }         
+        this.Value=Val;
+    }
+    public IntByRef()
+    {
+        this.Value=0;
+    }
+    public int Value;
 }

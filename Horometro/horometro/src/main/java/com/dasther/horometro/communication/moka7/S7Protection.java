@@ -18,29 +18,21 @@
 |  decide to adopt.                                                            |
 |                                                                              |
 |=============================================================================*/
-package com.dasther.horometro.moka7;
+package com.dasther.horometro.communication.moka7;
 
-/**
- *
- * @author Davide
- */
-public class S7OrderCode {
-  
-    public int V1;
-    public int V2;
-    public int V3;
-    protected byte[] Buffer = new byte[1024];       
-
-    protected void Update(byte[] Src, int Pos, int Size)
-    {
-        System.arraycopy(Src, Pos, Buffer, 0, Size);
-        V1 = (byte) Src[Size-3];
-        V2 = (byte) Src[Size-2];
-        V3 = (byte) Src[Size-1];
-    }   
-
-    public String Code()
-    {
-        return S7.GetStringAt(Buffer, 2, 20);
-    }
+// See §33.19 of "System Software for S7-300/400 System and Standard Functions"
+public class S7Protection {
+   public int sch_schal;
+   public int sch_par;
+   public int sch_rel;
+   public int bart_sch;
+   public int anl_sch;
+   protected void Update(byte[] Src)
+   {
+       sch_schal = S7.GetWordAt(Src,2);
+       sch_par   = S7.GetWordAt(Src,4);
+       sch_rel   = S7.GetWordAt(Src,6);
+       bart_sch  = S7.GetWordAt(Src,8);
+       anl_sch   = S7.GetWordAt(Src,10);
+   }
 }

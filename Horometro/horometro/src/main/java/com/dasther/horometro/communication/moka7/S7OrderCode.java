@@ -18,23 +18,29 @@
 |  decide to adopt.                                                            |
 |                                                                              |
 |=============================================================================*/
-
-package com.dasther.horometro.moka7;
+package com.dasther.horometro.communication.moka7;
 
 /**
- * Quick class to pass an integer by reference
+ *
  * @author Davide
  */
+public class S7OrderCode {
+  
+    public int V1;
+    public int V2;
+    public int V3;
+    protected byte[] Buffer = new byte[1024];       
 
-public class IntByRef {
-   
-    public IntByRef(int Val)
+    protected void Update(byte[] Src, int Pos, int Size)
     {
-        this.Value=Val;
-    }
-    public IntByRef()
+        System.arraycopy(Src, Pos, Buffer, 0, Size);
+        V1 = (byte) Src[Size-3];
+        V2 = (byte) Src[Size-2];
+        V3 = (byte) Src[Size-1];
+    }   
+
+    public String Code()
     {
-        this.Value=0;
+        return S7.GetStringAt(Buffer, 2, 20);
     }
-    public int Value;
 }

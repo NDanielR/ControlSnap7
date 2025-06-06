@@ -18,7 +18,7 @@
 |  decide to adopt.                                                            |
 |                                                                              |
 |=============================================================================*/
-package com.dasther.horometro.moka7;
+package com.dasther.horometro.communication.moka7;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

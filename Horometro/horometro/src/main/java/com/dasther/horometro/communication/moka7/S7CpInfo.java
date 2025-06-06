@@ -18,25 +18,24 @@
 |  decide to adopt.                                                            |
 |                                                                              |
 |=============================================================================*/
-package com.dasther.horometro.moka7;
+package com.dasther.horometro.communication.moka7;
 
 /**
  *
  * @author Davide
  */
-public class S7Szl {
-    
-    public int LENTHDR;
-    public int N_DR;
-    public int DataSize;
-    public byte Data[];
-    
-    public S7Szl(int BufferSize)
+public class S7CpInfo {
+
+    public int MaxPduLength;
+    public int MaxConnections;
+    public int MaxMpiRate;
+    public int MaxBusRate;
+
+    protected void Update(byte[] Src, int Pos)
     {
-        Data = new byte[BufferSize];
-    }
-    protected void Copy(byte[] Src, int SrcPos, int DestPos, int Size)
-    {
-        System.arraycopy(Src, SrcPos, Data, DestPos, Size);
-    }   
+        MaxPduLength = S7.GetShortAt(Src, 2);
+        MaxConnections = S7.GetShortAt(Src, 4);
+        MaxMpiRate = S7.GetDIntAt(Src, 6);
+        MaxBusRate = S7.GetDIntAt(Src, 10);                      
+    }         
 }
